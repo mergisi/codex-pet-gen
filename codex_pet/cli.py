@@ -61,7 +61,9 @@ def cmd_validate(args: argparse.Namespace) -> int:
 
 def cmd_preview(args: argparse.Namespace) -> int:
     atlas = Path(args.atlas).resolve()
-    out_dir = Path(args.out or atlas.parent / "preview").resolve()
+    # Default: <atlas-stem>-preview/ next to the atlas (so multiple atlases
+    # in the same dir don't clobber each other and the path is predictable).
+    out_dir = Path(args.out or atlas.parent / f"{atlas.stem}-preview").resolve()
     written = write_all(atlas, out_dir,
                          html=args.html, title=args.title)
     for p in written:
