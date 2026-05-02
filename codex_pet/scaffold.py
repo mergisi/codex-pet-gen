@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
 README_TEMPLATE = """# {name}
 
-A Codex pet built with [`codex-pet-gen`](https://github.com/yourname/codex-pet-gen).
+A Codex pet built with [`codex-pet-gen`](https://github.com/mergisi/codex-pet-gen).
 
 ## Build
 
