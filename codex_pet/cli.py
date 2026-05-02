@@ -128,10 +128,18 @@ def cmd_creature(args: argparse.Namespace) -> int:
     sheet.save(out, "WEBP", lossless=True, quality=100)
     print(f"wrote {out} ({sheet.size[0]}x{sheet.size[1]})")
 
-    if args.preview:
+    want_preview = args.preview or args.html or args.open
+    if want_preview:
         preview_dir = out.parent / (out.stem + "-preview")
-        write_all(out, preview_dir)
+        write_all(out, preview_dir, html=args.html or args.open,
+                   title=args.name or (args.preset.capitalize() if args.preset
+                                         else "Codex pet"))
         print(f"preview: {preview_dir}")
+        if args.open:
+            import webbrowser
+            html_path = preview_dir / "index.html"
+            if html_path.exists():
+                webbrowser.open(html_path.as_uri())
 
     if not args.no_install:
         # Default: install to Codex. Auto-derive name from preset if missing.
@@ -275,6 +283,10 @@ def build_parser() -> argparse.ArgumentParser:
                     help="also write atlas to this path (default: ./<preset>.webp)")
     pc.add_argument("--preview", action="store_true",
                     help="also generate per-row GIFs + contact sheet")
+    pc.add_argument("--html", action="store_true",
+                    help="also build the interactive state-viewer HTML page")
+    pc.add_argument("--open", action="store_true",
+                    help="open the HTML viewer in the default browser")
     pc.add_argument("--no-install", action="store_true",
                     help="don't install to Codex, just write the .webp file")
     pc.add_argument("--force", action="store_true",
