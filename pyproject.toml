@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codex-pet-gen"
+version = "0.1.0"
+description = "Build, preview, and install Codex pets from the CLI — parametric creatures, presets, and a state-viewer in one tool."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "codex-pet contributors" }]
+keywords = ["codex", "pet", "sprite", "pixel-art", "spritesheet"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Multimedia :: Graphics",
+]
+dependencies = [
+    "Pillow>=10.0",
+]
+
+[project.scripts]
+codex-pet = "codex_pet.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yourname/codex-pet-gen"
+Issues = "https://github.com/yourname/codex-pet-gen/issues"
+
+[tool.setuptools.packages.find]
+include = ["codex_pet*"]
